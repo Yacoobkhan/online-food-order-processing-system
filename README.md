@@ -99,41 +99,25 @@ CREATE DATABASE kitchendb;
 CREATE DATABASE deliverydb;
 ```
 
-### Start Apache ActiveMQ
+3. **Start Apache ActiveMQ**
+   ```bash
+   activemq start
+   ```
 
-```bash
-activemq start
-```
+4. **Run the Spring Boot microservices** (in separate terminals):
+   ```bash
+   cd payment-service  && ./mvnw spring-boot:run
+   cd kitchen-service  && ./mvnw spring-boot:run
+   cd delivery-service && ./mvnw spring-boot:run
+   cd order-service    && ./mvnw spring-boot:run
+   ```
 
-### Run the Spring Boot Microservices (in separate terminals)
-
-```bash
-cd payment-service
-./mvnw spring-boot:run
-```
-
-```bash
-cd kitchen-service
-./mvnw spring-boot:run
-```
-
-```bash
-cd delivery-service
-./mvnw spring-boot:run
-```
-
-```bash
-cd order-service
-./mvnw spring-boot:run
-```
-
-### Start the React Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
+5. **Start the React frontend**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
 ### Open in Browser
 
