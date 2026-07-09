@@ -1,0 +1,30 @@
+Hibernate: insert into orders (amount,created_at,customer_name,item,status,updated_at) values (?,?,?,?,?,?)
+[OrderService] Order #61 - Status: PLACED, Order created
+[OrderService] Order #61 - Published to order.created queue
+[OrderService] Order #61 - Workflow triggered automatically via ActiveMQ consumer
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+Hibernate: update orders set amount=?,customer_name=?,item=?,status=?,updated_at=? where id=?
+2026-07-09T16:52:57.124+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.PaymentDelegate          
+ : [PaymentDelegate] Order #61 - Status updated to PAYMENT
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+2026-07-09T16:52:59.346+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.PaymentDelegate          
+ : [PaymentDelegate] Order #61 - Payment result: SUCCESS
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+Hibernate: update orders set amount=?,customer_name=?,item=?,status=?,updated_at=? where id=?
+2026-07-09T16:52:59.439+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.KitchenDelegate          
+ : [KitchenDelegate] Order #61 - Status updated to KITCHEN
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+2026-07-09T16:53:01.620+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.KitchenDelegate          
+ : [KitchenDelegate] Order #61 - Kitchen ticket created, food is READY
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+Hibernate: update orders set amount=?,customer_name=?,item=?,status=?,updated_at=? where id=?
+2026-07-09T16:53:01.668+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.DeliveryDelegate         
+ : [DeliveryDelegate] Order #61 - Status updated to DELIVERY
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+2026-07-09T16:53:03.857+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.DeliveryDelegate         
+ : [DeliveryDelegate] Order #61 - Driver assigned: Suresh, out for delivery
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+2026-07-09T16:53:03.903+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.d.UpdateOrderStatusDelegate        : [UpdateOrderStatusDelegate] Order #61 - Workflow COMPLETE, status updated to DELIVERED
+Hibernate: update orders set amount=?,customer_name=?,item=?,status=?,updated_at=? where id=?

@@ -1,0 +1,18 @@
+Hibernate: insert into orders (amount,created_at,customer_name,item,status,updated_at) values (?,?,?,?,?,?)
+[OrderService] Order #58 - Status: PLACED, Order created
+[OrderService] Order #58 - Published to order.created queue
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+[OrderService] Order #58 - Workflow triggered automatically via ActiveMQ consumer
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+Hibernate: update orders set amount=?,customer_name=?,item=?,status=?,updated_at=? where id=?
+2026-07-09T16:41:39.213+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.PaymentDelegate          
+ : [PaymentDelegate] Order #58 - Status updated to PAYMENT
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 order by o1_0.id desc
+2026-07-09T16:41:43.345+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.PaymentDelegate          
+ : [PaymentDelegate] Order #58 - Payment result: FAILED
+Hibernate: select o1_0.id,o1_0.amount,o1_0.created_at,o1_0.customer_name,o1_0.item,o1_0.status,o1_0.updated_at from orders o1_0 where o1_0.id=?
+2026-07-09T16:41:43.431+05:30  INFO 11328 --- [aTaskExecutor-1] c.f.o.delegate.CancelOrderDelegate       : [OrderService] Order #58 - CANCELLED
+Hibernate: update orders set amount=?,customer_name=?,item=?,status=?,updated_at=? where id=?
