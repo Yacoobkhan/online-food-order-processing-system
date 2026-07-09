@@ -59,6 +59,15 @@ Food_Order_System/
 ```
 
 ---
+## Configuration
+
+Before running the project:
+
+- Install and start MySQL.
+- Update the MySQL username and password in each microservice's `application.properties` file to match your local MySQL installation.
+- Start Apache ActiveMQ (default credentials: `admin/admin`).
+- Camunda uses the default local admin account (`admin/admin`).
+---
 
 ## How to Run
 
