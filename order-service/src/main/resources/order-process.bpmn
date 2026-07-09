@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  targetNamespace="http://camunda.org/examples">
+
+  <bpmn:process id="order-process" name="Order Process" isExecutable="true" camunda:historyTimeToLive="180">
+
+    <!-- Start Event: triggered when OrderCreated event arrives via ActiveMQ -->
+    <bpmn:startEvent id="startEvent" name="Order Created" />
+
+    <!-- Payment Service Task: sets status=PAYMENT, delays 2s, calls payment-service -->
+    <bpmn:serviceTask id="paymentTask" name="Process Payment"
+                      camunda:delegateExpression="${paymentDelegate}"
+                      camunda:asyncBefore="true" />
+
+    <!-- Exclusive Gateway: routes based on paymentStatus variable -->
+    <bpmn:exclusiveGateway id="paymentGateway" name="Payment Result?" />
+
+    <!-- Kitchen Service Task: sets status=KITCHEN, delays 2s, calls kitchen-service -->
+    <bpmn:serviceTask id="kitchenTask" name="Prepare Food"
+                      camunda:delegateExpression="${kitchenDelegate}"
+                      camunda:asyncBefore="true" />
+
+    <!-- Delivery Service Task: sets status=DELIVERY, delays 2s, calls delivery-service -->
+    <bpmn:serviceTask id="deliveryTask" name="Deliver Order"
+                      camunda:delegateExpression="${deliveryDelegate}"
+                      camunda:asyncBefore="true" />
+
+    <!-- Final status update: sets status=DELIVERED -->
+    <bpmn:serviceTask id="updateStatusTask" name="Complete Order"
+                      camunda:delegateExpression="${updateOrderStatusDelegate}"
+                      camunda:asyncBefore="true" />
+
+    <!-- Cancel Task: sets status=CANCELLED when payment fails -->
+    <bpmn:serviceTask id="cancelTask" name="Cancel Order"
+                      camunda:delegateExpression="${cancelOrderDelegate}"
+                      camunda:asyncBefore="true" />
+
+    <!-- End Events -->
+    <bpmn:endEvent id="deliveredEnd" name="Delivered" />
+    <bpmn:endEvent id="cancelledEnd" name="Cancelled" />
+
+    <!-- Sequence Flows -->
+    <bpmn:sequenceFlow id="flow1" sourceRef="startEvent"    targetRef="paymentTask" />
+    <bpmn:sequenceFlow id="flow2" sourceRef="paymentTask"   targetRef="paymentGateway" />
+
+    <!-- Payment Success path -->
+    <bpmn:sequenceFlow id="flowSuccess" sourceRef="paymentGateway" targetRef="kitchenTask">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentStatus == 'SUCCESS'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <!-- Payment Failure path -->
+    <bpmn:sequenceFlow id="flowFailure" sourceRef="paymentGateway" targetRef="cancelTask">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${paymentStatus == 'FAILED'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+
+    <bpmn:sequenceFlow id="flow3"      sourceRef="kitchenTask"     targetRef="deliveryTask" />
+    <bpmn:sequenceFlow id="flow4"      sourceRef="deliveryTask"    targetRef="updateStatusTask" />
+    <bpmn:sequenceFlow id="flow5"      sourceRef="updateStatusTask" targetRef="deliveredEnd" />
+    <bpmn:sequenceFlow id="flowCancel" sourceRef="cancelTask"      targetRef="cancelledEnd" />
+
+  </bpmn:process>
+</bpmn:definitions>
