@@ -86,8 +86,8 @@ Before running the project:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/Yacoobkhan/food-order-system.git
-cd food-order-system
+git clone https://github.com/Yacoobkhan/online-food-order-processing-system
+cd online-food-order-processing-system-main
 ```
 
 ### Create MySQL Databases
