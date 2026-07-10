@@ -33,6 +33,15 @@ An event-driven, microservices-based food ordering system built with **Spring Bo
 
 ---
 
+## Frontend
+
+The React application contains two pages:
+
+- **Order Placement** – Users can enter customer name, item, and amount to place a new order.
+- **Order Dashboard** – Displays all orders with real-time status updates by polling the backend every 2 seconds.
+  
+---
+
 ## Workflow
 
 ### Success Flow
@@ -46,6 +55,23 @@ PLACED → PAYMENT → KITCHEN → DELIVERY → DELIVERED
 ```
 PLACED → PAYMENT → CANCELLED
 ```
+
+---
+
+## ActiveMQ Queue
+
+Queue Name:
+
+order.created
+
+Producer:
+- Order Service
+
+Consumer:
+- Camunda Workflow Engine
+
+Purpose:
+- Starts the Camunda workflow asynchronously after an order is placed.
 
 ---
 
@@ -124,6 +150,18 @@ CREATE DATABASE deliverydb;
 ```
 http://localhost:5173
 ```
+
+---
+
+## Documentation
+
+The repository includes:
+
+- API Low-Level Design
+- Database Design
+- ER Diagram
+- Implementation Report
+- Project Screenshots
 
 ---
 
