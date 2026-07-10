@@ -57,7 +57,7 @@ Food_Order_System/
 ├── payment-service/     ← Port 8082
 ├── kitchen-service/     ← Port 8083
 ├── delivery-service/    ← Port 8084
-└── frontend/            ← Port 5173 (React + Vite)
+└── react-frontend/            ← Port 5173 (React + Vite)
 ```
 
 ---
@@ -86,8 +86,8 @@ Before running the project:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/Yacoobkhan/online-food-order-processing-system
-cd online-food-order-processing-system-main
+git clone https://github.com/Yacoobkhan/online-food-order-processing-system.git
+cd online-food-order-processing-system
 ```
 
 ### Create MySQL Databases
@@ -114,7 +114,7 @@ CREATE DATABASE deliverydb;
 
 5. **Start the React frontend**
    ```bash
-   cd frontend
+   cd react-frontend
    npm install
    npm run dev
    ```
